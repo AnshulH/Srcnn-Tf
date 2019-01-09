@@ -5,10 +5,10 @@ import os.path
 import os
 
 from util import(input_setup,
-				  merge,
-				  save_img,
-				  create_data,
-				  read_data)
+		merge,
+		save_img,
+		create_data,
+		read_data)
 	
 
 class SRCNN(object):
