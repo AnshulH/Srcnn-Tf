@@ -67,8 +67,8 @@ def preprocess(path,scale=3):
   image = image / 255.0
   label_prep = label_prep / 255.0
 
-  bicubic_img = cv2.resize(label_prep,None,fx = 1.0/scale ,fy = 1.0/scale, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
-  scaled_image = cv2.resize(bicubic_img,None,fx = scale ,fy=scale, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
+  bicubic_img = cv2.resize(label_prep,None,fx = 1.0/scale ,fy = 1.0/scale, interpolation = cv2.INTER_CUBIC)
+  scaled_image = cv2.resize(bicubic_img,None,fx = scale ,fy=scale, interpolation = cv2.INTER_CUBIC)
   scaled_label = label_prep
 
   return scaled_image, scaled_label
