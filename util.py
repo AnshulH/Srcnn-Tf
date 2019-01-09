@@ -67,8 +67,8 @@ def preprocess(path,scale=3):
   image = image / 255.0
   label_prep = label_prep / 255.0
 
-  bicubic_img = cv2.resize(label_prep,None,fx = 1.0/scale ,fy = 1.0/scale, interpolation = cv2.INTER_CUBIC)
-  scaled_image = cv2.resize(bicubic_img,None,fx = scale ,fy=scale, interpolation = cv2.INTER_CUBIC)
+  bicubic_img = cv2.resize(label_prep,None,fx = 1.0/scale ,fy = 1.0/scale, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
+  scaled_image = cv2.resize(bicubic_img,None,fx = scale ,fy=scale, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
   scaled_label = label_prep
 
   return scaled_image, scaled_label
@@ -110,6 +110,7 @@ def input_setup(sess,config):
         data_lab_list.append(sub_label)
 
   else:
+    #print(len(data))
     inp, lab = preprocess(data[2], config.scale)
 
     height, width, channel = inp.shape
@@ -120,6 +121,7 @@ def input_setup(sess,config):
     for x in range(0,height-config.image_dim+1,config.stride):
       sub_img_countx += 1 
       sub_img_county = 0  
+      print(sub_img_countx)
       for y in range(0,width-config.image_dim+1,config.stride):
         sub_img_county += 1
         sub_input = inp[x:x+config.image_dim,y:y+config.image_dim]
@@ -141,10 +143,7 @@ def input_setup(sess,config):
     return sub_img_countx,sub_img_county
 
 def save_img(image,path,config):
-  if not os.path.isdir(os.path.join(os.getcwd(),config.result_dir)):
-    os.makedirs(os.path.join(os.getcwd(),config.result_dir))
-  
-    cv2.imwrite(os.path.join(os.getcwd(),path),image * 255.)
+    return misc.imsave(path, image)
 
 def merge(images, size, channel):
   h, w = images.shape[1], images.shape[2]
@@ -153,7 +152,8 @@ def merge(images, size, channel):
     i = idx % size[1]
     j = idx // size[1]
     image[j*h:j*h+h,i*w:i*w+w,:] = img
-    return image
+   # print(image.shape)
+  return image
 '''
 print(paths)
 for x in range(paths_length):

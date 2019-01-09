@@ -3,12 +3,13 @@ import cv2 as cv2
 import numpy as np
 import os.path
 import os
+from PIL import Image
 
 from util import(input_setup,
-		merge,
-		save_img,
-		create_data,
-		read_data)
+				  merge,
+				  save_img,
+				  create_data,
+				  read_data)
 	
 
 class SRCNN(object):
@@ -150,8 +151,11 @@ class SRCNN(object):
 			out = self.pred.eval({self.images:train_data,self.labels:train_label })
 
 			image = merge(out, [x,y], config.channel)
-
-			save_img(image,os.sep+'result_dir'+os.sep+'result.png',config)
+			
+			image_path = os.path.join(os.getcwd(), config.result_dir)
+			image_path = os.path.join(image_path, "test_image.png")
+			#Image.open(image).show()
+			save_img(image,image_path,config)
 
 '''
 	def model_init(self):
