@@ -6,10 +6,10 @@ import os
 from PIL import Image
 
 from util import(input_setup,
-				  merge,
-				  save_img,
-				  create_data,
-				  read_data)
+		merge,
+		save_img,
+		create_data,
+		read_data)
 	
 
 class SRCNN(object):
